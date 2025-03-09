@@ -1,12 +1,35 @@
-# React + Vite
+# 🌐 Kişisel Web Sitem
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bu repo; Vite, React ve Tailwind CSS kullanarak geliştirdiğim kişisel web sitemi içerir. Modern web teknolojileri kullanılarak oluşturulmuş, hızlı ve responsive bir kişisel portfolyo sitesidir.
 
-Currently, two official plugins are available:
+## ✨ Özellikler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚡ **Vite** ile hızlı geliştirme ortamı
+- 🎨 **Tailwind CSS** ile modern ve özelleştirilebilir tasarım
+- ⚛️ **React** bileşenleri ile modüler yapı
+- 📱 Tüm cihazlar için responsive tasarım
+- 🌙 Karanlık/Aydınlık mod desteği
 
-## Expanding the ESLint configuration
+## 🚀 Proje Hakkında
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Bu website, başlangıçta Vite ve Firebase Deploy entegrasyonunu test etmek amacıyla oluşturulmuş olup, sonrasında kişisel websiteme dönüşmüştür. İçerik geliştirme süreci devam etmekte olup, ilerleyen dönemlerde projelerim de siteye eklenecektir.
+
+## 👀 Ziyaret Et
+
+Websitemi görmek için: [muratdemirkiran.com](https://muratdemirkiran.com)
+
+## 🛠️ Teknolojiler
+
+- **Vite**: Hızlı geliştirme ve derleme süreci
+- **React**: Kullanıcı arayüzü geliştirme kütüphanesi
+- **Tailwind CSS**: Utility-first CSS framework
+- **ESLint**: Kod kalitesi kontrolü
+- **Firebase**: Hosting ve deployment
+
+## 📝 Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır.
+
+---
+
+Murat Demirkıran © 2025
