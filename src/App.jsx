@@ -1,13 +1,10 @@
 import './App.css'
-import { CustomCursor } from './components/CustomCursor'
-import { ClickSpark } from './components/ClickSpark'
+import { CursorEffects } from './components/CursorEffects'
 
 function App() {
     return (
         <div className="min-h-dvh bg-black w-full">
-            <div className="text-primary">Murat Demirkiran</div>
-            <CustomCursor />
-            <ClickSpark />
+            <CursorEffects />
         </div>
     )
 }

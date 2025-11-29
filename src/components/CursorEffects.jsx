@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 const MINIMUM_SCREEN_SIZE = 1100;
 
-export function CustomCursor() {
+export function CursorEffects() {
+    // CustomCursor state
     const canvasRef = useRef(null);
     const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
@@ -24,16 +25,21 @@ export function CustomCursor() {
 
     const trail = trailRef.current;
 
+    // ClickSpark state
+    const [sparks, setSparks] = useState([]);
+    const sparkIdRef = useRef(0);
+
+    // Initialize pointer position
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
-        // Initialize pointer position
         setPointer({
             x: 0.5 * window.innerWidth,
             y: 0.5 * window.innerHeight
         });
     }, []);
 
+    // CustomCursor effect
     useEffect(() => {
         if (window.innerWidth < MINIMUM_SCREEN_SIZE || !canvasRef.current) return;
 
@@ -77,7 +83,6 @@ export function CustomCursor() {
 
             ctx.lineWidth = 1;
             ctx.lineCap = 'round';
-            // Get the computed color from the canvas element
             const computedColor = window.getComputedStyle(canvas).color;
             ctx.strokeStyle = computedColor;
             ctx.beginPath();
@@ -106,10 +111,76 @@ export function CustomCursor() {
         };
     }, [pointer, params, trail]);
 
+    // ClickSpark effect
+    useEffect(() => {
+        const handleClick = (event) => {
+            const id = sparkIdRef.current++;
+            const newSpark = {
+                id,
+                x: event.pageX,
+                y: event.pageY
+            };
+
+            setSparks(prev => [...prev, newSpark]);
+
+            setTimeout(() => {
+                setSparks(prev => prev.filter(spark => spark.id !== id));
+            }, 660);
+        };
+
+        document.addEventListener('click', handleClick);
+        return () => document.removeEventListener('click', handleClick);
+    }, []);
+
     return (
-        <canvas
-            ref={canvasRef}
-            className="pointer-events-none fixed left-0 top-0 z-30 duration-500 opacity-0 text-primary"
-        />
+        <>
+            {/* Custom Cursor */}
+            <canvas
+                ref={canvasRef}
+                className="pointer-events-none fixed left-0 top-0 z-30 duration-500 opacity-0 text-primary"
+            />
+
+            {/* Click Sparks */}
+            {sparks.map(spark => (
+                <div
+                    key={spark.id}
+                    className="fixed pointer-events-none z-40 text-primary"
+                    style={{
+                        left: `${spark.x - 15}px`,
+                        top: `${spark.y - 15}px`
+                    }}
+                >
+                    <svg
+                        width="30"
+                        height="30"
+                        viewBox="0 0 100 100"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="4"
+                        stroke="currentColor"
+                        className="animate-spark"
+                    >
+                        {Array.from({ length: 8 }, (_, i) => (
+                            <line
+                                key={i}
+                                x1="50"
+                                y1="30"
+                                x2="50"
+                                y2="4"
+                                strokeDasharray="30"
+                                strokeDashoffset="30"
+                                style={{
+                                    transformOrigin: 'center',
+                                    animation: `spark-line 660ms cubic-bezier(0.25, 1, 0.5, 1) forwards`,
+                                    animationDelay: '0ms',
+                                    transform: `rotate(calc(${i} * (360deg / 8)))`
+                                }}
+                            />
+                        ))}
+                    </svg>
+                </div>
+            ))}
+        </>
     );
 }
