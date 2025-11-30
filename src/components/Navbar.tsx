@@ -49,7 +49,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div className="fixed top-5 right-5 md:right-10 z-[50] flex flex-col gap-2">
+            <div className="fixed top-1.5 right-1.5 md:top-5 md:right-10 z-[50] flex flex-col md:gap-2">
                 <button
                     className={cn(
                         'group size-12 relative z-[2]',
