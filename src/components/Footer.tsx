@@ -13,7 +13,7 @@ const Footer = () => {
     React.useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await fetch('https://api.github.com/repos/tajmirul/portfolio-2.0');
+                const response = await fetch('https://api.github.com/repos/Murat/portfolio-2.0');
                 const data = await response.json();
                 setStats({
                     stargazers_count: data.stargazers_count,

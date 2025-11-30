@@ -4,16 +4,16 @@ export const GENERAL_INFO = {
     email: 'muratdemirkiran33@gmail.com',
 
     emailSubject: "Let's collaborate on a project",
-    emailBody: 'Hi Tajmirul, I am reaching out to you because...',
+    emailBody: 'Hi Murat, I am reaching out to you because...',
 
     oldPortfolio: 'https://www.legacy.me.toinfinite.dev',
-    upworkProfile: 'https://www.upwork.com/freelancers/tajmirul',
+    upworkProfile: 'https://www.upwork.com/freelancers/Murat',
 };
 
 export const SOCIAL_LINKS = [
-    { name: 'github', url: 'https://github.com/Tajmirul' },
-    { name: 'linkedin', url: 'https://www.linkedin.com/in/tajmirul' },
-    { name: 'facebook', url: 'https://www.facebook.com/tajmirul.2000' },
+    { name: 'github', url: 'https://github.com/Murat' },
+    { name: 'linkedin', url: 'https://www.linkedin.com/in/Murat' },
+    { name: 'facebook', url: 'https://www.facebook.com/Murat.2000' },
     { name: 'Old Version', url: GENERAL_INFO.oldPortfolio },
 ];
 
@@ -256,7 +256,7 @@ export const PROJECTS: IProject[] = [
             '/projects/images/consulting-finance-2.png',
             '/projects/images/consulting-finance-3.png',
         ],
-        sourceCode: 'https://github.com/Tajmirul/crenotive',
+        sourceCode: 'https://github.com/Murat/crenotive',
         liveUrl: 'https://crenotive.netlify.app/',
         year: 2023,
         description:
@@ -274,7 +274,7 @@ export const PROJECTS: IProject[] = [
             '/projects/images/devLinks-2.png',
             '/projects/images/devLinks-3.png',
         ],
-        sourceCode: 'https://github.com/Tajmirul/devsLink',
+        sourceCode: 'https://github.com/Murat/devsLink',
         liveUrl: 'https://devlinks-demo.vercel.app/auth/signin',
         year: 2023,
         description: `One of the most challenging projects in Frontend Mentor.<br/><br/>
