@@ -1,7 +1,7 @@
 
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
-import { MoveUpRight } from 'lucide-react';
+import { MoveUpRight, Sun, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { GENERAL_INFO, SOCIAL_LINKS } from '@/lib/data';
 
@@ -33,14 +33,26 @@ const MENU_LINKS = [
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [language, setLanguage] = useState<'EN' | 'TR'>('EN');
+    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
     const navigate = useNavigate();
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.classList.toggle('dark');
+    };
+
+    const toggleLanguage = () => {
+        setLanguage((prev) => (prev === 'EN' ? 'TR' : 'EN'));
+    };
 
     return (
         <>
-            <div className="sticky top-0 z-[4]">
+            <div className="fixed top-5 right-5 md:right-10 z-[50] flex flex-col gap-2">
                 <button
                     className={cn(
-                        'group size-12 absolute top-5 right-5 md:right-10 z-[2]',
+                        'group size-12 relative z-[2]',
                     )}
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
@@ -62,6 +74,30 @@ const Navbar = () => {
                             },
                         )}
                     ></span>
+                </button>
+
+                {/* Theme Button */}
+                <button
+                    className="group size-12 flex items-center justify-center"
+                    onClick={toggleTheme}
+                    aria-label="Toggle Theme"
+                >
+                    {theme === 'light' ? (
+                        <Sun className="size-7 text-foreground transition-transform duration-300 md:group-hover:rotate-90" />
+                    ) : (
+                        <Moon className="size-7 text-foreground transition-transform duration-300 md:group-hover:-rotate-12" />
+                    )}
+                </button>
+
+                {/* Language Button */}
+                <button
+                    className="group size-12 flex items-center justify-center font-bold text-[20px] text-foreground"
+                    onClick={toggleLanguage}
+                    aria-label="Change Language"
+                >
+                    <span className="transition-transform duration-300 md:group-hover:scale-110">
+                        {language}
+                    </span>
                 </button>
             </div>
 
