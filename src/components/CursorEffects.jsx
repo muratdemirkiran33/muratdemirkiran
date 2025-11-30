@@ -5,11 +5,12 @@ const MINIMUM_SCREEN_SIZE = 1100;
 export function CursorEffects() {
     // CustomCursor state
     const canvasRef = useRef(null);
-    const [pointer, setPointer] = useState({ x: 0, y: 0 });
+    const cursorRef = useRef(null);
+    const [pointer, setPointer] = useState({ x: 0, y: 0, isHovering: false });
 
     const params = {
         pointsNumber: 10,
-        widthFactor: 0.3,
+        widthFactor: 0.4,
         friction: 0.4,
         spring: 0.5
     };
@@ -35,7 +36,8 @@ export function CursorEffects() {
 
         setPointer({
             x: 0.5 * window.innerWidth,
-            y: 0.5 * window.innerHeight
+            y: 0.5 * window.innerHeight,
+            isHovering: false
         });
     }, []);
 
@@ -46,18 +48,37 @@ export function CursorEffects() {
         let animationFrameId;
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
+        const cursor = cursorRef.current;
 
+        let moveTimeout;
         const handleMouseMove = (event) => {
-            updateMousePosition(event.clientX, event.clientY);
-            if (event.target instanceof HTMLElement) {
-                canvas.style.opacity = event.target.closest('a, button, .no-custom-cursor')
-                    ? '10%'
-                    : '100%';
+            const isHovering = event.target.closest('a, button, input, textarea, select, [role="button"]');
+            updateMousePosition(event.clientX, event.clientY, !!isHovering);
+
+            if (isHovering) {
+                // Hide canvas trail immediately when hovering clickable elements
+                canvas.style.transitionDuration = '500ms';
+                canvas.style.opacity = '0';
+                clearTimeout(moveTimeout);
+            } else {
+                // Show canvas trail when moving (normal behavior) - Instant appear
+                canvas.style.transitionDuration = '0ms';
+                canvas.style.opacity = '1';
+
+                // Hide canvas trail when stopped - Fade out
+                clearTimeout(moveTimeout);
+                moveTimeout = setTimeout(() => {
+                    canvas.style.transitionDuration = '500ms';
+                    canvas.style.opacity = '0';
+                }, 500);
             }
+
+            // Ensure SVG cursor is always visible
+            if (cursor) cursor.style.opacity = '1';
         };
 
-        const updateMousePosition = (x, y) => {
-            setPointer({ x, y });
+        const updateMousePosition = (x, y, isHovering) => {
+            setPointer({ x, y, isHovering });
         };
 
         const setupCanvas = () => {
@@ -117,8 +138,8 @@ export function CursorEffects() {
             const id = sparkIdRef.current++;
             const newSpark = {
                 id,
-                x: event.pageX,
-                y: event.pageY
+                x: event.clientX,
+                y: event.clientY
             };
 
             setSparks(prev => [...prev, newSpark]);
@@ -134,7 +155,30 @@ export function CursorEffects() {
 
     return (
         <>
-            {/* Custom Cursor */}
+            {/* Custom Cursor SVG */}
+            <div
+                ref={cursorRef}
+                className="pointer-events-none fixed left-0 top-0 z-50 opacity-0 transition-opacity duration-300"
+                style={{
+                    transform: `translate(${pointer.x}px, ${pointer.y}px)`,
+                }}
+            >
+                <svg
+                    width="27"
+                    height="30"
+                    viewBox="0 0 27 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`text-primary transition-transform duration-300 ${pointer.isHovering ? 'scale-150' : 'scale-100'}`}
+                >
+                    <path
+                        d="M20.0995 11.0797L3.72518 1.13204C2.28687 0.258253 0.478228 1.44326 0.704999 3.11083L3.28667 22.0953C3.58333 24.2768 7.33319 24.6415 8.3792 22.7043C9.5038 20.6215 10.8639 18.7382 12.43 17.7122C13.996 16.6861 16.2658 16.1911 18.6244 15.9918C20.8181 15.8063 21.9811 12.2227 20.0995 11.0797Z"
+                        className="fill-foreground stroke-background/50"
+                    />
+                </svg>
+            </div>
+
+            {/* Custom Cursor Canvas */}
             <canvas
                 ref={canvasRef}
                 className="pointer-events-none fixed left-0 top-0 z-30 duration-500 opacity-0 text-primary"
@@ -146,13 +190,13 @@ export function CursorEffects() {
                     key={spark.id}
                     className="fixed pointer-events-none z-40 text-primary"
                     style={{
-                        left: `${spark.x - 15}px`,
-                        top: `${spark.y - 15}px`
+                        left: `${spark.x - 18}px`,
+                        top: `${spark.y - 18}px`
                     }}
                 >
                     <svg
-                        width="30"
-                        height="30"
+                        width="36"
+                        height="36"
                         viewBox="0 0 100 100"
                         fill="none"
                         strokeLinecap="round"
@@ -161,7 +205,7 @@ export function CursorEffects() {
                         stroke="currentColor"
                         className="animate-spark"
                     >
-                        {Array.from({ length: 8 }, (_, i) => (
+                        {Array.from({ length: 10 }, (_, i) => (
                             <line
                                 key={i}
                                 x1="50"
@@ -174,7 +218,7 @@ export function CursorEffects() {
                                     transformOrigin: 'center',
                                     animation: `spark-line 660ms cubic-bezier(0.25, 1, 0.5, 1) forwards`,
                                     animationDelay: '0ms',
-                                    transform: `rotate(calc(${i} * (360deg / 8)))`
+                                    transform: `rotate(calc(${i} * (360deg / 10)))`
                                 }}
                             />
                         ))}
