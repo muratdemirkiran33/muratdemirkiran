@@ -23,7 +23,7 @@ const Preloader = () => {
             });
 
             tl.to('.preloader-item', {
-                delay: 1,
+                delay: 0.3,
                 y: '100%',
                 duration: 0.5,
                 stagger: 0.1,
@@ -53,16 +53,27 @@ const Preloader = () => {
             <div className="preloader-item h-full w-[10%] bg-black"></div>
             <div className="preloader-item h-full w-[10%] bg-black"></div>
 
-            <p className="name-text flex text-[20vw] lg:text-[200px] font-anton text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 leading-none overflow-hidden">
-                <span className="inline-block translate-y-full">T</span>
-                <span className="inline-block translate-y-full">A</span>
-                <span className="inline-block translate-y-full">J</span>
-                <span className="inline-block translate-y-full">M</span>
-                <span className="inline-block translate-y-full">I</span>
-                <span className="inline-block translate-y-full">R</span>
-                <span className="inline-block translate-y-full">U</span>
-                <span className="inline-block translate-y-full">L</span>
-            </p>
+            <div className="name-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center font-anton text-[15vw] lg:text-[120px] leading-relaxed tracking-[0.05em] text-center z-10">
+                <div className="overflow-hidden flex">
+                    <span className="inline-block translate-y-full">M</span>
+                    <span className="inline-block translate-y-full">U</span>
+                    <span className="inline-block translate-y-full">R</span>
+                    <span className="inline-block translate-y-full">A</span>
+                    <span className="inline-block translate-y-full">T</span>
+                </div>
+                <div className="overflow-hidden flex">
+                    <span className="inline-block translate-y-full">D</span>
+                    <span className="inline-block translate-y-full">E</span>
+                    <span className="inline-block translate-y-full">M</span>
+                    <span className="inline-block translate-y-full">İ</span>
+                    <span className="inline-block translate-y-full">R</span>
+                    <span className="inline-block translate-y-full">K</span>
+                    <span className="inline-block translate-y-full">I</span>
+                    <span className="inline-block translate-y-full">R</span>
+                    <span className="inline-block translate-y-full">A</span>
+                    <span className="inline-block translate-y-full">N</span>
+                </div>
+            </div>
         </div>
     );
 };
