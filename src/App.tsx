@@ -17,27 +17,46 @@ import AboutMe from '@/components/home/AboutMe';
 import Skills from '@/components/home/Skills';
 import Experiences from '@/components/home/Experiences';
 import ProjectList from '@/components/home/ProjectList';
+import { LanguageProvider } from '@/contexts/LanguageContext';
+import { Routes, Route, ScrollRestoration } from 'react-router-dom';
+import ProjectPage from '@/pages/ProjectPage';
 
 function App() {
     return (
-        <ReactLenis root options={{ lerp: 0.1, duration: 1.4 }}>
-            <Navbar />
-            <main>
-                <div className="page-">
-                    <Banner />
-                    <AboutMe />
-                    <Skills />
-                    <Experiences />
-                    <ProjectList />
-                </div>
-            </main>
-            <Footer />
-            <CursorEffects />
-            <Preloader />
-            <ScrollProgressIndicator />
-            <ParticleBackground />
-            <StickyEmail />
-        </ReactLenis>
+        <LanguageProvider>
+            <ReactLenis root options={{ lerp: 0.1, duration: 1.4 }}>
+                <ScrollRestoration
+                    getKey={(location) => {
+                        // Scroll to top for project detail pages
+                        return location.pathname;
+                    }}
+                />
+                <Navbar />
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <main>
+                                <div className="page-">
+                                    <Banner />
+                                    <AboutMe />
+                                    <Skills />
+                                    <Experiences />
+                                    <ProjectList />
+                                </div>
+                            </main>
+                        }
+                    />
+                    <Route path="/projects/:slug" element={<ProjectPage />} />
+                </Routes>
+                <Footer />
+                <CursorEffects />
+                <Preloader />
+                <ScrollProgressIndicator />
+                <ParticleBackground />
+                <StickyEmail />
+            </ReactLenis>
+        </LanguageProvider>
     );
 }
 

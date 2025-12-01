@@ -1,9 +1,10 @@
 
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MoveUpRight, Sun, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { GENERAL_INFO, SOCIAL_LINKS } from '@/lib/data';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const COLORS = [
     'bg-yellow-500 text-black',
@@ -33,18 +34,28 @@ const MENU_LINKS = [
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [language, setLanguage] = useState<'EN' | 'TR'>('EN');
-    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+    const { language, setLanguage } = useLanguage();
+    const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+        if (typeof window !== 'undefined') {
+            return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        }
+        return 'light';
+    });
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const root = window.document.documentElement;
+        root.classList.remove('light', 'dark');
+        root.classList.add(theme);
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
     const toggleTheme = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
-        document.documentElement.classList.toggle('dark');
+        setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
     };
 
     const toggleLanguage = () => {
-        setLanguage((prev) => (prev === 'EN' ? 'TR' : 'EN'));
+        setLanguage(language === 'EN' ? 'TR' : 'EN');
     };
 
     return (

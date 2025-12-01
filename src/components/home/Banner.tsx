@@ -6,11 +6,13 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Banner = () => {
     const containerRef = React.useRef<HTMLDivElement>(null);
+    const { t } = useLanguage();
 
     // move the content a little up on scroll
     useGSAP(
@@ -41,18 +43,16 @@ const Banner = () => {
                 ref={containerRef}
             >
                 <div className="max-md:grow max-md:flex flex-col justify-center items-start max-w-[544px]">
-                    <h1 className="banner-title slide-up-and-fade leading-[.95] text-6xl sm:text-[80px] font-anton">
+                    <h1 className="banner-title slide-up-and-fade leading-[1.1] sm:leading-none text-6xl sm:text-[80px] font-anton">
                         <span className="text-primary">FRONTEND</span>
-                        <br /> <span className="ml-4">DEVELOPER</span>
+                        <br /> <span className="sm:ml-8 ml-6">DEVELOPER</span>
                     </h1>
                     <p className="banner-description slide-up-and-fade mt-6 text-lg text-muted-foreground">
-                        Hi! I&apos;m{' '}
+                        {t('banner.description.intro')}
                         <span className="font-medium text-foreground">
-                            Murat
+                            {t('banner.description.name')}
                         </span>
-                        . A creative Frontend Developer with 3+ years of
-                        experience in building high-performance, scalable, and
-                        responsive web solutions.
+                        {t('banner.description.text')}
                     </p>
                     <Button
                         as="link"
