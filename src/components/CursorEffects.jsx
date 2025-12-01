@@ -123,12 +123,25 @@ export function CursorEffects() {
             animationFrameId = requestAnimationFrame(updateCanvas);
         };
 
+        const handleMouseOut = () => {
+            canvas.style.opacity = '0';
+            if (cursor) cursor.style.opacity = '0';
+        };
+
+        const handleMouseOver = () => {
+            if (cursor) cursor.style.opacity = '1';
+        };
+
         setupCanvas();
         window.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseout', handleMouseOut);
+        document.addEventListener('mouseover', handleMouseOver);
 
         return () => {
             window.cancelAnimationFrame(animationFrameId);
             window.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseout', handleMouseOut);
+            document.removeEventListener('mouseover', handleMouseOver);
         };
     }, [pointer, params, trail]);
 
