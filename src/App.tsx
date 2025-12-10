@@ -9,7 +9,7 @@ import ScrollProgressIndicator from '@/components/ScrollProgressIndicator';
 import ParticleBackground from '@/components/ParticleBackground';
 import { CursorEffects } from '@/components/CursorEffects';
 import Preloader from '@/components/Preloader';
-import StickyEmail from '@/components/home/StickyEmail';
+import SocialSideBar from '@/components/home/SocialSideBar';
 
 // Home page components
 import Banner from '@/components/home/Banner';
@@ -54,7 +54,7 @@ function App() {
                 <Preloader />
                 <ScrollProgressIndicator />
                 <ParticleBackground />
-                <StickyEmail />
+                <SocialSideBar />
             </ReactLenis>
         </LanguageProvider>
     );

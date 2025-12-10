@@ -1,7 +1,7 @@
 import { IProject } from '@/types';
 
 export const GENERAL_INFO = {
-    email: 'muratdemirkiran33@gmail.com',
+    email: 'murat@muratdemirkiran.com',
 
     emailSubject: "Let's collaborate on a project",
     emailBody: 'Hi Murat, I am reaching out to you because...',
@@ -11,10 +11,8 @@ export const GENERAL_INFO = {
 };
 
 export const SOCIAL_LINKS = [
-    { name: 'github', url: 'https://github.com/Murat' },
-    { name: 'linkedin', url: 'https://www.linkedin.com/in/Murat' },
-    { name: 'facebook', url: 'https://www.facebook.com/Murat.2000' },
-    { name: 'Old Version', url: GENERAL_INFO.oldPortfolio },
+    { name: 'linkedin', url: 'https://www.linkedin.com/in/muratdemirkiran' },
+    { name: 'github', url: 'https://github.com/muratdemirkiran33' },
 ];
 
 export const MY_STACK = {
