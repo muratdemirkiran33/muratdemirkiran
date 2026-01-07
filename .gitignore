@@ -31,3 +31,10 @@ templates
 
 # TODO
 TODO.md
+
+# Sensitive files - NEVER commit
+credentials.json
+*.py
+n.py
+n8n_exploit.py
+webhook_scan.py
