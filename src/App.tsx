@@ -19,8 +19,6 @@ import ProjectList from '@/components/home/ProjectList';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { Routes, Route, ScrollRestoration } from 'react-router-dom';
 import ProjectPage from '@/pages/ProjectPage';
-import ToolsPage from '@/pages/ToolsPage';
-import MermaidToFigma from '@/pages/tools/MermaidToFigma';
 
 function App() {
     return (
@@ -49,8 +47,6 @@ function App() {
                         }
                     />
                     <Route path="/projects/:slug" element={<ProjectPage />} />
-                    <Route path="/tools" element={<ToolsPage />} />
-                    <Route path="/tools/mermaid-to-figma" element={<MermaidToFigma />} />
                 </Routes>
                 <Footer />
                 <CursorEffects />
