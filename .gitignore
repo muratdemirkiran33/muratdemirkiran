@@ -25,6 +25,8 @@ dist-ssr
 
 # environment
 .env
+.env.*
+!.env.example
 
 # templates
 templates
