@@ -19,11 +19,13 @@ import ProjectList from '@/components/home/ProjectList';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { Routes, Route, ScrollRestoration } from 'react-router-dom';
 import ProjectPage from '@/pages/ProjectPage';
+import AnalyticsTracker from '@/components/AnalyticsTracker';
 
 function App() {
     return (
         <LanguageProvider>
             <ReactLenis root options={{ lerp: 0.1, duration: 1.4 }}>
+                <AnalyticsTracker />
                 <ScrollRestoration
                     getKey={(location) => {
                         // Scroll to top for project detail pages

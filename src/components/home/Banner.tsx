@@ -44,8 +44,13 @@ const Banner = () => {
             >
                 <div className="max-md:grow max-md:flex flex-col justify-center items-start max-w-[544px]">
                     <h1 className="banner-title slide-up-and-fade leading-[1.1] sm:leading-none text-6xl sm:text-[80px] font-anton">
-                        <span className="text-primary">FRONTEND</span>
-                        <br /> <span className="sm:ml-8 ml-6">DEVELOPER</span>
+                        <span className="text-primary">
+                            {t('banner.title.line1')}
+                        </span>
+                        <br />{' '}
+                        <span className="sm:ml-8 ml-6">
+                            {t('banner.title.line2')}
+                        </span>
                     </h1>
                     <p className="banner-description slide-up-and-fade mt-6 text-lg text-muted-foreground">
                         {t('banner.description.intro')}
@@ -62,7 +67,7 @@ const Banner = () => {
                         variant="primary"
                         className="mt-9 banner-button slide-up-and-fade"
                     >
-                        Hire Me
+                        {t('banner.cta')}
                     </Button>
                 </div>
 
@@ -72,7 +77,7 @@ const Banner = () => {
                             3+
                         </h5>
                         <p className="text-muted-foreground">
-                            Years of Experience
+                            {t('banner.stats.experience')}
                         </p>
                     </div>
                     <div className="slide-up-and-fade">
@@ -80,14 +85,16 @@ const Banner = () => {
                             7+
                         </h5>
                         <p className="text-muted-foreground">
-                            Completed Projects
+                            {t('banner.stats.projects')}
                         </p>
                     </div>
                     <div className="slide-up-and-fade">
                         <h5 className="text-3xl sm:text-4xl font-anton text-primary mb-1.5">
                             10K+
                         </h5>
-                        <p className="text-muted-foreground">Hours Worked</p>
+                        <p className="text-muted-foreground">
+                            {t('banner.stats.hours')}
+                        </p>
                     </div>
                 </div>
             </div>

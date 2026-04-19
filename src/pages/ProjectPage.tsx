@@ -1,11 +1,13 @@
 import { useParams, Navigate } from 'react-router-dom';
-import { PROJECTS } from '@/lib/data';
+import { getProjects } from '@/lib/data';
 import ProjectDetails from '@/components/ProjectDetails';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const ProjectPage = () => {
     const { slug } = useParams<{ slug: string }>();
+    const { language } = useLanguage();
 
-    const project = PROJECTS.find((p) => p.slug === slug);
+    const project = getProjects(language).find((p) => p.slug === slug);
 
     if (!project) {
         return <Navigate to="/" replace />;

@@ -1,4 +1,5 @@
 export type Next_Page_Url = string;
+export type Language = 'EN' | 'TR';
 // UrlObject;
 // | __next_route_internal_types__.StaticRoutes
 // | __next_route_internal_types__.DynamicRoutes;
@@ -27,4 +28,11 @@ export interface IProject {
     slug: string;
     liveUrl?: string;
     sourceCode?: string;
+}
+
+export interface IExperience {
+    title: string;
+    company: string;
+    duration: string;
+    description: string;
 }

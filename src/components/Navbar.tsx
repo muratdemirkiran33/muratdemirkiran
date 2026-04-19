@@ -15,26 +15,26 @@ const COLORS = [
 
 const MENU_LINKS = [
     {
-        name: 'Home',
+        labelKey: 'nav.link.home',
         url: '/',
     },
     {
-        name: 'About Me',
+        labelKey: 'nav.link.about',
         url: '/#about-me',
     },
     {
-        name: 'Experience',
+        labelKey: 'nav.link.experience',
         url: '/#my-experience',
     },
     {
-        name: 'Projects',
+        labelKey: 'nav.link.projects',
         url: '/#selected-projects',
     },
 ];
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { language, setLanguage } = useLanguage();
+    const { language, setLanguage, t } = useLanguage();
     const [theme, setTheme] = useState<'light' | 'dark'>(() => {
         if (typeof window !== 'undefined') {
             return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
@@ -91,7 +91,7 @@ const Navbar = () => {
                 <button
                     className="group size-12 flex items-center justify-center"
                     onClick={toggleTheme}
-                    aria-label="Toggle Theme"
+                    aria-label={t('nav.aria.theme')}
                 >
                     {theme === 'light' ? (
                         <Sun className="size-7 text-foreground transition-transform duration-300 md:group-hover:rotate-90" />
@@ -104,7 +104,7 @@ const Navbar = () => {
                 <button
                     className="group size-12 flex items-center justify-center font-bold text-[20px] text-foreground"
                     onClick={toggleLanguage}
-                    aria-label="Change Language"
+                    aria-label={t('nav.aria.language')}
                 >
                     <span className="transition-transform duration-300 md:group-hover:scale-110">
                         {language}
@@ -142,7 +142,7 @@ const Navbar = () => {
                     <div className="flex gap-10 lg:justify-between max-lg:flex-col w-full">
                         <div className="max-lg:order-2">
                             <p className="text-muted-foreground mb-5 md:mb-8">
-                                SOCIAL
+                                {t('nav.social')}
                             </p>
                             <ul className="space-y-3">
                                 {SOCIAL_LINKS.map((link) => (
@@ -161,11 +161,11 @@ const Navbar = () => {
                         </div>
                         <div className="">
                             <p className="text-muted-foreground mb-5 md:mb-8">
-                                MENU
+                                {t('nav.menu')}
                             </p>
                             <ul className="space-y-3">
                                 {MENU_LINKS.map((link, idx) => (
-                                    <li key={link.name}>
+                                    <li key={link.labelKey}>
                                         <button
                                             onClick={() => {
                                                 if (link.url.startsWith('/#')) {
@@ -190,7 +190,7 @@ const Navbar = () => {
                                                     className="scale-0 group-hover:scale-100 transition-all"
                                                 />
                                             </span>
-                                            {link.name}
+                                            {t(link.labelKey)}
                                         </button>
                                     </li>
                                 ))}
@@ -200,7 +200,9 @@ const Navbar = () => {
                 </div>
 
                 <div className="w-full max-w-[300px] mx-8 sm:mx-auto">
-                    <p className="text-muted-foreground mb-4">GET IN TOUCH</p>
+                    <p className="text-muted-foreground mb-4">
+                        {t('nav.getInTouch')}
+                    </p>
                     <a href={`mailto:${GENERAL_INFO.email}`}>
                         {GENERAL_INFO.email}
                     </a>

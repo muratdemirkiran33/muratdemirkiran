@@ -1,5 +1,6 @@
 import React from 'react';
 import { SOCIAL_LINKS, GENERAL_INFO } from '@/lib/data';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const ICONS: Record<string, React.ReactNode> = {
     linkedin: (
@@ -65,13 +66,17 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 const SocialSideBar = () => {
+    const { language } = useLanguage();
+
     return (
         <div className="hidden lg:block fixed bottom-0 w-10 left-10 z-10 right-auto">
             <ul className="flex flex-col items-center m-0 p-0 after:content-[''] after:block after:w-px after:mt-3 after:h-24 after:bg-muted-foreground after:mx-auto">
                 <li>
                     <a
                         href={`mailto:${GENERAL_INFO.email}`}
-                        aria-label="Send email"
+                        aria-label={
+                            language === 'TR' ? 'E-posta gönder' : 'Send email'
+                        }
                         className="text-muted-foreground p-2.5 block hover:text-primary transition-all duration-200"
                     >
                         {ICONS.email}
@@ -91,7 +96,11 @@ const SocialSideBar = () => {
                                 href={link.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label={`Visit ${link.name} profile`}
+                                aria-label={
+                                    language === 'TR'
+                                        ? `${link.name} profilini ziyaret et`
+                                        : `Visit ${link.name} profile`
+                                }
                                 className="text-muted-foreground p-2.5 block hover:text-primary transition-all duration-200"
                             >
                                 {icon}

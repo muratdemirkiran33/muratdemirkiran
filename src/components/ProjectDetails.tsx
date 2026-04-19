@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import { useRef } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Props {
     project: IProject;
@@ -17,6 +18,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const ProjectDetails = ({ project }: Props) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const { t } = useLanguage();
 
     useGSAP(
         () => {
@@ -93,7 +95,7 @@ const ProjectDetails = ({ project }: Props) => {
                     className="mb-16 inline-flex gap-2 items-center group h-12"
                 >
                     <ArrowLeft className="group-hover:-translate-x-1 group-hover:text-primary transition-all duration-300" />
-                    Back
+                    {t('project.back')}
                 </TransitionLink>
 
                 <div
@@ -135,14 +137,14 @@ const ProjectDetails = ({ project }: Props) => {
                         <div className="max-w-[635px] space-y-7 pb-20 mx-auto">
                             <div className="fade-in-later">
                                 <p className="text-muted-foreground font-anton mb-3">
-                                    Year
+                                    {t('project.year')}
                                 </p>
 
                                 <div className="text-lg">{project.year}</div>
                             </div>
                             <div className="fade-in-later">
                                 <p className="text-muted-foreground font-anton mb-3">
-                                    Tech & Technique
+                                    {t('project.tech')}
                                 </p>
 
                                 <div className="text-lg">
@@ -151,7 +153,7 @@ const ProjectDetails = ({ project }: Props) => {
                             </div>
                             <div className="fade-in-later">
                                 <p className="text-muted-foreground font-anton mb-3">
-                                    Description
+                                    {t('project.description')}
                                 </p>
 
                                 <div className="text-lg prose-xl markdown-text">
@@ -161,7 +163,7 @@ const ProjectDetails = ({ project }: Props) => {
                             {project.role && (
                                 <div className="fade-in-later">
                                     <p className="text-muted-foreground font-anton mb-3">
-                                        My Role
+                                        {t('project.role')}
                                     </p>
 
                                     <div className="text-lg">

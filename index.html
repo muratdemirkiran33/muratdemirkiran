@@ -5,9 +5,38 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
   <title>Murat Demirkıran</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LGR2KRNLE7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-LGR2KRNLE7', { send_page_view: false });
+  </script>
   <link rel="preload" href="/fonts/Anton-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/RobotoFlex-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    html {
+      background: #ffffff;
+      color: #0a0a0a;
+      color-scheme: light;
+    }
+
+    html.dark {
+      background: #212121;
+      color: #dedede;
+      color-scheme: dark;
+    }
+
+    body,
+    #root {
+      min-height: 100vh;
+      background: inherit;
+      color: inherit;
+    }
+  </style>
   <script>
     (function () {
       try {
@@ -15,8 +44,10 @@
         var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (savedTheme === 'dark' || (!savedTheme && supportDarkMode)) {
           document.documentElement.classList.add('dark');
+          document.documentElement.style.colorScheme = 'dark';
         } else {
           document.documentElement.classList.remove('dark');
+          document.documentElement.style.colorScheme = 'light';
         }
       } catch (e) { }
     })();

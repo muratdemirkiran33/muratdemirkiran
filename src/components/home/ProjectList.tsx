@@ -1,6 +1,6 @@
 
 import SectionTitle from '@/components/SectionTitle';
-import { PROJECTS } from '@/lib/data';
+import { getProjects } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/all';
 import Image from '@/components/Image';
 import React, { useRef, useState, MouseEvent } from 'react';
 import Project from './Project';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -16,8 +17,12 @@ const ProjectList = () => {
     const projectListRef = useRef<HTMLDivElement>(null);
     const imageContainer = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
+    const { language, t } = useLanguage();
+    const selectedProjects = getProjects(language).filter(
+        (project) => project.slug === 'electro-ev',
+    );
     const [selectedProject, setSelectedProject] = useState<string | null>(
-        PROJECTS[0].slug,
+        selectedProjects[0]?.slug ?? null,
     );
 
     // update imageRef.current href based on the cursor hover position
@@ -106,7 +111,7 @@ const ProjectList = () => {
     return (
         <section className="pb-section" id="selected-projects">
             <div className="container">
-                <SectionTitle title="SELECTED PROJECTS" />
+                <SectionTitle title={t('section.projects')} />
 
                 <div className="group/projects relative" ref={containerRef}>
                     {selectedProject !== null && (
@@ -114,7 +119,7 @@ const ProjectList = () => {
                             className="max-md:hidden absolute right-0 top-0 z-[1] pointer-events-none w-[200px] xl:w-[350px] aspect-[3/4] overflow-hidden opacity-0"
                             ref={imageContainer}
                         >
-                            {PROJECTS.map((project) => (
+                            {selectedProjects.map((project) => (
                                 <Image
                                     src={project.thumbnail}
                                     alt="Project"
@@ -139,7 +144,7 @@ const ProjectList = () => {
                         className="flex flex-col max-md:gap-10"
                         ref={projectListRef}
                     >
-                        {PROJECTS.map((project, index) => (
+                        {selectedProjects.map((project, index) => (
                             <Project
                                 index={index}
                                 project={project}
