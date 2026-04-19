@@ -1,4 +1,5 @@
 import { IProject } from '@/types';
+import { projectAssets, stackIcons } from '@/lib/siteAssets';
 
 export const GENERAL_INFO = {
     email: 'murat@muratdemirkiran.com',
@@ -19,89 +20,89 @@ export const MY_STACK = {
     frontend: [
         {
             name: 'JavaScript',
-            icon: '/logo/js.png',
+            icon: stackIcons.javascript,
         },
         {
             name: 'TypeScript',
-            icon: '/logo/ts.png',
+            icon: stackIcons.typescript,
         },
         {
             name: 'React',
-            icon: '/logo/react.png',
+            icon: stackIcons.react,
         },
         {
             name: 'Next.js',
-            icon: '/logo/next.png',
+            icon: stackIcons.next,
         },
         {
             name: 'Redux',
-            icon: '/logo/redux.png',
+            icon: stackIcons.redux,
         },
         {
             name: 'Tailwind CSS',
-            icon: '/logo/tailwind.png',
+            icon: stackIcons.tailwind,
         },
         {
             name: 'GSAP',
-            icon: '/logo/gsap.png',
+            icon: stackIcons.gsap,
         },
         {
             name: 'Framer Motion',
-            icon: '/logo/framer-motion.png',
+            icon: stackIcons.framerMotion,
         },
         {
             name: 'Sass',
-            icon: '/logo/sass.png',
+            icon: stackIcons.sass,
         },
         {
             name: 'Bootstrap',
-            icon: '/logo/bootstrap.svg',
+            icon: stackIcons.bootstrap,
         },
     ],
     backend: [
         {
             name: 'Node.js',
-            icon: '/logo/node.png',
+            icon: stackIcons.node,
         },
         {
             name: 'NestJS',
-            icon: '/logo/nest.svg',
+            icon: stackIcons.nest,
         },
         {
             name: 'Express.js',
-            icon: '/logo/express.png',
+            icon: stackIcons.express,
         },
     ],
     database: [
         {
             name: 'MySQL',
-            icon: '/logo/mysql.svg',
+            icon: stackIcons.mysql,
         },
         {
             name: 'PostgreSQL',
-            icon: '/logo/postgreSQL.png',
+            icon: stackIcons.postgreSql,
         },
         {
             name: 'MongoDB',
-            icon: '/logo/mongodb.svg',
+            icon: stackIcons.mongodb,
         },
         {
             name: 'Prisma',
-            icon: '/logo/prisma.png',
+            icon: stackIcons.prisma,
         },
     ],
     tools: [
         {
             name: 'Git',
-            icon: '/logo/git.png',
+            icon: stackIcons.git,
         },
         {
             name: 'Docker',
-            icon: '/logo/docker.svg',
+            icon: stackIcons.docker,
         },
         {
             name: 'AWS',
-            icon: '/logo/aws.png',
+            icon: stackIcons.aws,
         },
     ],
 };
@@ -153,12 +154,9 @@ export const PROJECTS: IProject[] = [
             'React Hook Form',
             'Vercel',
         ],
-        thumbnail: '/projects/thumbnail/mti-electronics.webp',
-        longThumbnail: '/projects/long/mti-electronics.webp',
-        images: [
-            '/projects/images/mti-electronics-1.webp',
-            '/projects/images/mti-electronics-2.webp',
-        ],
+        thumbnail: projectAssets.electroEv.thumbnail,
+        longThumbnail: projectAssets.electroEv.longThumbnail,
+        images: projectAssets.electroEv.images,
     },
     {
         title: 'Epikcart',
@@ -172,15 +170,9 @@ export const PROJECTS: IProject[] = [
             'debouncing',
             'Api Integration',
         ],
-        thumbnail: '/projects/thumbnail/epikcart.jpg',
-        longThumbnail: '/projects/long/epikcart.jpg',
-        images: [
-            '/projects/images/epikcart-1.png',
-            '/projects/images/epikcart-2.png',
-            '/projects/images/epikcart-3.png',
-            '/projects/images/epikcart-4.png',
-            '/projects/images/epikcart-5.png',
-        ],
+        thumbnail: projectAssets.epikcart.thumbnail,
+        longThumbnail: projectAssets.epikcart.longThumbnail,
+        images: projectAssets.epikcart.images,
         liveUrl: 'https://demo.epikcart.siphertech.com/',
         year: 2023,
         description: `Epikcart is a feature-rich, scalable e-commerce platform tailored for large businesses. It features dynamic product filtering, multi-language support with RTL, advanced inventory management, order tracking, and refund systems, offering a comprehensive solution for multi-vendor operations.`,
@@ -200,13 +192,9 @@ export const PROJECTS: IProject[] = [
             'Prisma',
             'Tailwind CSS',
         ],
-        thumbnail: '/projects/thumbnail/resume-roaster.jpg',
-        longThumbnail: '/projects/long/resume-roaster.jpg',
-        images: [
-            '/projects/images/resume-roaster-1.png',
-            '/projects/images/resume-roaster-2.png',
-            '/projects/images/resume-roaster-3.png',
-        ],
+        thumbnail: projectAssets.resumeRoaster.thumbnail,
+        longThumbnail: projectAssets.resumeRoaster.longThumbnail,
+        images: projectAssets.resumeRoaster.images,
         liveUrl: 'https://resume-roaster.vercel.app/',
         year: 2023,
         description:
@@ -226,13 +214,9 @@ export const PROJECTS: IProject[] = [
             'React i18n',
             'Framer Motion',
         ],
-        thumbnail: '/projects/thumbnail/property-pro.jpg',
-        longThumbnail: '/projects/long/property-pro.jpg',
-        images: [
-            '/projects/images/property-pro-1.png',
-            '/projects/images/property-pro-2.png',
-            '/projects/images/property-pro-3.png',
-        ],
+        thumbnail: projectAssets.propertyPro.thumbnail,
+        longThumbnail: projectAssets.propertyPro.longThumbnail,
+        images: projectAssets.propertyPro.images,
         liveUrl: 'https://demo.propertypro.siphertech.com/',
         year: 2023,
         description:
@@ -247,13 +231,9 @@ export const PROJECTS: IProject[] = [
         title: 'Consulting Finance',
         slug: 'crenotive',
         techStack: ['HTML', 'CSS & SCSS', 'Javascript', 'Bootstrap'],
-        thumbnail: '/projects/thumbnail/consulting-finance.jpg',
-        longThumbnail: '/projects/long/consulting-finance.jpg',
-        images: [
-            '/projects/images/consulting-finance-1.png',
-            '/projects/images/consulting-finance-2.png',
-            '/projects/images/consulting-finance-3.png',
-        ],
+        thumbnail: projectAssets.crenotive.thumbnail,
+        longThumbnail: projectAssets.crenotive.longThumbnail,
+        images: projectAssets.crenotive.images,
         sourceCode: 'https://github.com/Murat/crenotive',
         liveUrl: 'https://crenotive.netlify.app/',
         year: 2023,
@@ -265,13 +245,9 @@ export const PROJECTS: IProject[] = [
         title: 'devLinks',
         slug: 'devLinks',
         techStack: ['Next.js', 'Formik', 'Drag & Drop', 'Tailwind CSS'],
-        thumbnail: '/projects/thumbnail/devLinks.jpg',
-        longThumbnail: '/projects/long/devLinks.jpg',
-        images: [
-            '/projects/images/devLinks-1.png',
-            '/projects/images/devLinks-2.png',
-            '/projects/images/devLinks-3.png',
-        ],
+        thumbnail: projectAssets.devLinks.thumbnail,
+        longThumbnail: projectAssets.devLinks.longThumbnail,
+        images: projectAssets.devLinks.images,
         sourceCode: 'https://github.com/Murat/devsLink',
         liveUrl: 'https://devlinks-demo.vercel.app/auth/signin',
         year: 2023,
