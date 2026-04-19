@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: "Anton";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("/fonts/Anton-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto Flex";
+    font-style: normal;
+    font-weight: 100 1000;
+    font-display: swap;
+    src: url("/fonts/RobotoFlex-Variable.woff2") format("woff2");
+}
+
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
