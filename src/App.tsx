@@ -1,4 +1,4 @@
-import { ReactLenis } from 'lenis/react';
+import { ReactLenis, useLenis } from 'lenis/react';
 import 'lenis/dist/lenis.css';
 import './index.css';
 
@@ -17,17 +17,43 @@ import Skills from '@/components/home/Skills';
 import Experiences from '@/components/home/Experiences';
 import ProjectList from '@/components/home/ProjectList';
 import { LanguageProvider } from '@/contexts/LanguageContext';
-import { Routes, Route, ScrollRestoration } from 'react-router-dom';
+import {
+    Routes,
+    Route,
+    ScrollRestoration,
+    useLocation,
+} from 'react-router-dom';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
-import { lazy, Suspense } from 'react';
+import ProjectPage from '@/pages/ProjectPage';
+import { useLayoutEffect } from 'react';
 
-const ProjectPage = lazy(() => import('@/pages/ProjectPage'));
+const ProjectScrollReset = () => {
+    const { pathname } = useLocation();
+    const lenis = useLenis();
+
+    useLayoutEffect(() => {
+        if (!pathname.startsWith('/projects/')) return;
+
+        lenis?.scrollTo(0, { immediate: true, force: true });
+        window.scrollTo(0, 0);
+    }, [lenis, pathname]);
+
+    return null;
+};
 
 function App() {
     return (
         <LanguageProvider>
-            <ReactLenis root options={{ lerp: 0.1, duration: 1.4 }}>
+            <ReactLenis
+                root
+                options={{
+                    lerp: 0.1,
+                    duration: 1.4,
+                    stopInertiaOnNavigate: true,
+                }}
+            >
                 <AnalyticsTracker />
+                <ProjectScrollReset />
                 <ScrollRestoration
                     getKey={(location) => {
                         // Scroll to top for project detail pages
@@ -50,14 +76,7 @@ function App() {
                             </main>
                         }
                     />
-                    <Route
-                        path="/projects/:slug"
-                        element={
-                            <Suspense fallback={null}>
-                                <ProjectPage />
-                            </Suspense>
-                        }
-                    />
+                    <Route path="/projects/:slug" element={<ProjectPage />} />
                 </Routes>
                 <Footer />
                 <CursorEffects />
