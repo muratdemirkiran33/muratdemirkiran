@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import Image from '@/components/Image';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -74,7 +74,7 @@ const Skills = () => {
                     {Object.entries(MY_STACK).map(([key, value]) => (
                         <div className="grid sm:grid-cols-12" key={key}>
                             <div className="sm:col-span-5">
-                                <p className="slide-up text-5xl font-anton leading-none text-muted-foreground uppercase">
+                                <p className="slide-up text-5xl font-anton leading-none text-muted-foreground">
                                     {
                                         categoryLabels[
                                             key as keyof typeof categoryLabels

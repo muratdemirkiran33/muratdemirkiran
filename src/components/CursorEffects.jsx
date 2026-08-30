@@ -1,45 +1,39 @@
 import { useEffect, useRef, useState } from 'react';
 
 const MINIMUM_SCREEN_SIZE = 1100;
+const CURSOR_PARAMS = {
+    pointsNumber: 10,
+    widthFactor: 0.4,
+    friction: 0.4,
+    spring: 0.5
+};
+
+const createInitialPointer = () => ({
+    x: typeof window === 'undefined' ? 0 : 0.5 * window.innerWidth,
+    y: typeof window === 'undefined' ? 0 : 0.5 * window.innerHeight,
+    isHovering: false
+});
+
+const createTrail = () =>
+    new Array(CURSOR_PARAMS.pointsNumber).fill('').map(() => ({
+        x: 0,
+        y: 0,
+        dx: 0,
+        dy: 0
+    }));
 
 export function CursorEffects() {
     // CustomCursor state
     const canvasRef = useRef(null);
     const cursorRef = useRef(null);
-    const [pointer, setPointer] = useState({ x: 0, y: 0, isHovering: false });
-
-    const params = {
-        pointsNumber: 10,
-        widthFactor: 0.4,
-        friction: 0.4,
-        spring: 0.5
-    };
-
-    const trailRef = useRef(
-        new Array(params.pointsNumber).fill('').map(() => ({
-            x: 0,
-            y: 0,
-            dx: 0,
-            dy: 0
-        }))
-    );
-
-    const trail = trailRef.current;
+    const [initialPointer] = useState(createInitialPointer);
+    const [isHovering, setIsHovering] = useState(false);
+    const pointerRef = useRef(initialPointer);
+    const trailRef = useRef(createTrail());
 
     // ClickSpark state
     const [sparks, setSparks] = useState([]);
     const sparkIdRef = useRef(0);
-
-    // Initialize pointer position
-    useEffect(() => {
-        if (typeof window === 'undefined') return;
-
-        setPointer({
-            x: 0.5 * window.innerWidth,
-            y: 0.5 * window.innerHeight,
-            isHovering: false
-        });
-    }, []);
 
     // CustomCursor effect
     useEffect(() => {
@@ -49,6 +43,7 @@ export function CursorEffects() {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         const cursor = cursorRef.current;
+        const trail = trailRef.current;
 
         let moveTimeout;
         const handleMouseMove = (event) => {
@@ -78,7 +73,13 @@ export function CursorEffects() {
         };
 
         const updateMousePosition = (x, y, isHovering) => {
-            setPointer({ x, y, isHovering });
+            const hoverChanged = pointerRef.current.isHovering !== isHovering;
+            const nextPointer = { x, y, isHovering };
+            pointerRef.current = nextPointer;
+            if (cursor) {
+                cursor.style.transform = `translate(${x}px, ${y}px)`;
+            }
+            if (hoverChanged) setIsHovering(isHovering);
         };
 
         const setupCanvas = () => {
@@ -92,12 +93,12 @@ export function CursorEffects() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             trail.forEach((point, pointIndex) => {
-                const prev = pointIndex === 0 ? pointer : trail[pointIndex - 1];
-                const spring = pointIndex === 0 ? 0.4 * params.spring : params.spring;
+                const prev = pointIndex === 0 ? pointerRef.current : trail[pointIndex - 1];
+                const spring = pointIndex === 0 ? 0.4 * CURSOR_PARAMS.spring : CURSOR_PARAMS.spring;
                 point.dx += (prev.x - point.x) * spring;
                 point.dy += (prev.y - point.y) * spring;
-                point.dx *= params.friction;
-                point.dy *= params.friction;
+                point.dx *= CURSOR_PARAMS.friction;
+                point.dy *= CURSOR_PARAMS.friction;
                 point.x += point.dx;
                 point.y += point.dy;
             });
@@ -113,7 +114,7 @@ export function CursorEffects() {
                 const xc = 0.5 * (trail[i].x + trail[i + 1].x);
                 const yc = 0.5 * (trail[i].y + trail[i + 1].y);
                 ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
-                ctx.lineWidth = params.widthFactor * (params.pointsNumber - i);
+                ctx.lineWidth = CURSOR_PARAMS.widthFactor * (CURSOR_PARAMS.pointsNumber - i);
                 ctx.stroke();
             }
 
@@ -138,12 +139,13 @@ export function CursorEffects() {
         document.addEventListener('mouseover', handleMouseOver);
 
         return () => {
+            clearTimeout(moveTimeout);
             window.cancelAnimationFrame(animationFrameId);
             window.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseout', handleMouseOut);
             document.removeEventListener('mouseover', handleMouseOver);
         };
-    }, [pointer, params, trail]);
+    }, []);
 
     // ClickSpark effect
     useEffect(() => {
@@ -173,7 +175,7 @@ export function CursorEffects() {
                 ref={cursorRef}
                 className="pointer-events-none fixed left-0 top-0 z-50 opacity-0 transition-opacity duration-300"
                 style={{
-                    transform: `translate(${pointer.x}px, ${pointer.y}px)`,
+                    transform: `translate(${initialPointer.x}px, ${initialPointer.y}px)`,
                 }}
             >
                 <svg
@@ -182,7 +184,7 @@ export function CursorEffects() {
                     viewBox="0 0 27 30"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className={`text-primary transition-transform duration-300 ${pointer.isHovering ? 'scale-150' : 'scale-100'}`}
+                    className={`text-primary transition-transform duration-300 ${isHovering ? 'scale-150' : 'scale-100'}`}
                 >
                     <path
                         d="M20.0995 11.0797L3.72518 1.13204C2.28687 0.258253 0.478228 1.44326 0.704999 3.11083L3.28667 22.0953C3.58333 24.2768 7.33319 24.6415 8.3792 22.7043C9.5038 20.6215 10.8639 18.7382 12.43 17.7122C13.996 16.6861 16.2658 16.1911 18.6244 15.9918C20.8181 15.8063 21.9811 12.2227 20.0995 11.0797Z"

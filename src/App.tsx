@@ -18,8 +18,10 @@ import Experiences from '@/components/home/Experiences';
 import ProjectList from '@/components/home/ProjectList';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { Routes, Route, ScrollRestoration } from 'react-router-dom';
-import ProjectPage from '@/pages/ProjectPage';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
+import { lazy, Suspense } from 'react';
+
+const ProjectPage = lazy(() => import('@/pages/ProjectPage'));
 
 function App() {
     return (
@@ -48,7 +50,14 @@ function App() {
                             </main>
                         }
                     />
-                    <Route path="/projects/:slug" element={<ProjectPage />} />
+                    <Route
+                        path="/projects/:slug"
+                        element={
+                            <Suspense fallback={null}>
+                                <ProjectPage />
+                            </Suspense>
+                        }
+                    />
                 </Routes>
                 <Footer />
                 <CursorEffects />

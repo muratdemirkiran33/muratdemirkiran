@@ -6,7 +6,7 @@ import { IProject } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
+import { ArrowLeft, CodeXml, ExternalLink } from 'lucide-react';
 import { useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -118,7 +118,7 @@ const ProjectDetails = ({ project }: Props) => {
                                         rel="noreferrer noopener"
                                         className="hover:text-primary"
                                     >
-                                        <Github size={30} />
+                                        <CodeXml size={30} />
                                     </a>
                                 )}
                                 {project.liveUrl && (

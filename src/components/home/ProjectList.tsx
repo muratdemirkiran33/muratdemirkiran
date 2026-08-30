@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import Image from '@/components/Image';
-import React, { useRef, useState, MouseEvent } from 'react';
+import { useRef, useState, MouseEvent } from 'react';
 import Project from './Project';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -28,7 +28,7 @@ const ProjectList = () => {
     // update imageRef.current href based on the cursor hover position
     // also update image position
     useGSAP(
-        (context, contextSafe) => {
+        (_context, contextSafe) => {
             // show image on hover
             if (window.innerWidth < 768) {
                 setSelectedProject(null);

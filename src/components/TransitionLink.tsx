@@ -2,7 +2,7 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { Link, useNavigate } from 'react-router-dom';
-import React, { ComponentProps } from 'react';
+import type { ComponentProps, MouseEvent } from 'react';
 
 interface Props extends Omit<ComponentProps<typeof Link>, 'to'> {
     href?: string;
@@ -26,20 +26,10 @@ const TransitionLink = ({
     const { contextSafe } = useGSAP(() => { });
 
     const handleLinkClick = contextSafe(
-        async (e: React.MouseEvent<HTMLAnchorElement>) => {
+        (e: MouseEvent<HTMLAnchorElement>) => {
             e.preventDefault();
 
-            gsap.set('.page-transition', { yPercent: 100 });
-            gsap.set('.page-transition--inner', { yPercent: 100 });
-
-            const tl = gsap.timeline();
-
-            tl.to('.page-transition', {
-                yPercent: 0,
-                duration: 0.3,
-            });
-
-            tl.then(() => {
+            const finishNavigation = () => {
                 if (back) {
                     navigate(-1);
                 } else if (dest) {
@@ -47,6 +37,27 @@ const TransitionLink = ({
                 } else if (onClick) {
                     onClick(e);
                 }
+            };
+
+            const transition = document.querySelector('.page-transition');
+            if (!transition) {
+                finishNavigation();
+                return;
+            }
+
+            const transitionInner = document.querySelector(
+                '.page-transition--inner',
+            );
+
+            gsap.set(transition, { yPercent: 100 });
+            if (transitionInner) {
+                gsap.set(transitionInner, { yPercent: 100 });
+            }
+
+            gsap.to(transition, {
+                yPercent: 0,
+                duration: 0.3,
+                onComplete: finishNavigation,
             });
         },
     );

@@ -1,4 +1,3 @@
-import React from 'react';
 import { GENERAL_INFO } from '@/lib/data';
 import { useLanguage } from '@/contexts/LanguageContext';
 
